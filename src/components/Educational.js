@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
 
+class EducationalInfos extends Component {
+    render() {
+        return (
+            <div>
+                <h1 id="fullName">Tommy Chao</h1>
+                <p>tchao770@gmail.com</p>
+                <p>(209)123-4567</p>
+            </div>
+        );
+    }
+}
+
 class EducationalInfo extends Component {
     constructor(props){
         super(props);

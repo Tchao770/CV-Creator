@@ -1,9 +1,8 @@
 .container {
   text-align: center;
   display: grid;
-  align-items: center;
+  grid-area: '';
   width: 200px;
-  margin: auto;
 }
 
 .sectionCard{

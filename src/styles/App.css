@@ -1,0 +1,19 @@
+.container {
+  text-align: center;
+  display: grid;
+  align-items: center;
+  width: 200px;
+  margin: auto;
+}
+
+.sectionCard{
+  border: solid;
+  padding: 10px;
+}
+
+.heading{
+  margin-top: 0;
+  padding: 10px 0 10px 0;
+  text-align: center;
+  background-color: antiquewhite;
+}

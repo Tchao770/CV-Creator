@@ -1,16 +1,20 @@
-import './style.css';
+import React, { Component } from 'react';
 
-function GeneralInfo(){
-    return(
-        <div className="sectionCard">
-            <label>Institution</label>
-            <input type="text"></input><br/>
-            <label>Major</label>
-            <input></input><br/>
-            <label>Graduation Date</label>
-            <input></input><br/>
-        </div>
-    );
+class EducationalInfo extends Component {
+    constructor(props){
+        super(props);
+    }
+    render() {
+        const {classname} = this.props;
+        return (
+            <div className={classname}>
+                <h2>Education</h2>
+                <input type="text" placeholder="Institution" /><br />
+                <input type="text" placeholder="Major" /><br />
+                <input type="text" placeholder="Graduation Date" /><br />
+            </div>
+        );
+    }
 }
 
-export default GeneralInfo;
+export default EducationalInfo;

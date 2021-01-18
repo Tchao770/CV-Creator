@@ -16,10 +16,11 @@ function Position(){
 function App() {
   return (
     <div>
-      <Position/>
       <div className="container">
         <General classname="sectionCard" />
+        <hr style={{width: "50%"}}/>
         <Educational classname="sectionCard" />
+        <hr style={{width: "50%"}}/>
         <Practical classname="sectionCard" />
       </div>
     </div>

@@ -1,20 +1,25 @@
 .container {
-  text-align: center;
-  display: grid;
-  grid-area: '';
+  margin: auto;
+  border: solid;
+  width: 80vw;
 }
 
 .sectionCard {
-  padding: 10px;
+  text-align: center;
+  padding-bottom: 10px;
 }
 
 .genDisplay {
-  width: 100vw;
+  text-align: center;
   display: grid;
   grid-template-areas: "head head" "email phone";
 }
 
-.genDisplay:hover {
+.eduDisplay {
+  padding-left: 40px;
+}
+
+.genDisplay:hover, .eduDisplay:hover {
   background-color: antiquewhite;
   animation-duration: 0.5ms;
   user-select: none;
@@ -23,6 +28,7 @@
 
 .genDisplay>h1 {
   grid-area: head;
+  margin-bottom: 0px;
 }
 
 .genDisplay>#email {

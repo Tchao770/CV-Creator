@@ -4,9 +4,9 @@ class GeneralInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fullName: "",
-            email: "",
-            number: "",
+            fullName: "Sample Name",
+            email: "example@gmail.com",
+            number: "(123) 456-7890",
             editMode: true
         };
         this.temp = {
@@ -60,8 +60,8 @@ class GeneralInfo extends Component {
         return (
             <div className="genDisplay" onClick={this.toggleEdit}>
                 <h1 id="fullName">{fullName}</h1>
-                <p id="email">{email}</p>
-                <p id="phone">{number}</p>
+                <p id="email"><b>E-mail:</b> {email}</p>
+                <p id="phone"><b>Mobile:</b> {number}</p>
             </div>
         );
     }
@@ -71,6 +71,7 @@ class GeneralInfo extends Component {
         const { fullName, email, number } = this.state;
         return (
             <div className={classname}>
+                <h2>General</h2>
                 <input name="fullName" type="text" placeholder="Full Name"
                     value={fullName} onChange={this.handleChange} /><br />
                 <input name="email" type="email" placeholder="E-mail"

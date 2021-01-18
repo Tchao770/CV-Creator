@@ -2,15 +2,38 @@
   text-align: center;
   display: grid;
   grid-area: '';
-  width: 200px;
 }
 
-.sectionCard{
-  border: solid;
+.sectionCard {
   padding: 10px;
 }
 
-.heading{
+.genDisplay {
+  width: 100vw;
+  display: grid;
+  grid-template-areas: "head head" "email phone";
+}
+
+.genDisplay:hover {
+  background-color: antiquewhite;
+  animation-duration: 0.5ms;
+  user-select: none;
+  transition-duration: 0.4s;
+}
+
+.genDisplay>h1 {
+  grid-area: head;
+}
+
+.genDisplay>#email {
+  grid-area: email;
+}
+
+.genDisplay>#phone {
+  grid-area: phone;
+}
+
+.heading {
   margin-top: 0;
   padding: 10px 0 10px 0;
   text-align: center;

@@ -13,7 +13,6 @@ class GeneralInfo extends Component {
             fullName: "",
             email: "",
             number: "",
-            editMode: true
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSave = this.handleSave.bind(this);
@@ -24,16 +23,17 @@ class GeneralInfo extends Component {
     }
 
     toggleEdit() {
-        this.temp = Object.assign(this.temp, this.state);
+        Object.assign(this.temp, this.state);
         this.setState({
             editMode: true
         });
     }
 
     handleChange(event) {
+        const { name, value } = event.target
         this.setState({
             //...this.state,
-            [event.target.name]: event.target.value
+            [name]: value
         });
     }
 
@@ -58,11 +58,10 @@ class GeneralInfo extends Component {
     renderDisplay() {
         const { fullName, email, number } = this.state;
         return (
-            <div>
+            <div className="genDisplay" onClick={this.toggleEdit}>
                 <h1 id="fullName">{fullName}</h1>
-                <p>{email}</p>
-                <p>{number}</p>
-                <button onClick={this.toggleEdit}>Edit</button>
+                <p id="email">{email}</p>
+                <p id="phone">{number}</p>
             </div>
         );
     }
@@ -72,10 +71,12 @@ class GeneralInfo extends Component {
         const { fullName, email, number } = this.state;
         return (
             <div className={classname}>
-                <h2>General</h2>
-                <input name="fullName" type="text" placeholder="Full Name" value={fullName} onChange={this.handleChange} /><br />
-                <input name="email" type="email" placeholder="E-mail" value={email} onChange={this.handleChange} /><br />
-                <input name="number" placeholder="Phone Number" value={number} onChange={this.handleChange} /><br />
+                <input name="fullName" type="text" placeholder="Full Name"
+                    value={fullName} onChange={this.handleChange} /><br />
+                <input name="email" type="email" placeholder="E-mail"
+                    value={email} onChange={this.handleChange} /><br />
+                <input name="number" placeholder="Phone Number"
+                    value={number} onChange={this.handleChange} /><br />
                 <button onClick={this.handleSave}>Save</button>
                 <button onClick={this.handleCancel}>Cancel</button>
             </div>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 class EducationalInfo extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             schoolName: "Sample University",
             major: "Computer Science",
@@ -32,7 +32,6 @@ class EducationalInfo extends Component {
     handleChange(event) {
         const { name, value } = event.target
         this.setState({
-            //...this.state,
             [name]: value
         });
     }
@@ -71,7 +70,6 @@ class EducationalInfo extends Component {
         const { schoolName, major, gradDate } = this.state;
         return (
             <div className={classname}>
-                <h2>Education</h2>
                 <input name="schoolName" placeholder="Institution"
                     value={schoolName} onChange={this.handleChange} /><br />
                 <input name="major" placeholder="Major"

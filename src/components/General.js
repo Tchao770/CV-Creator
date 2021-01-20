@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 class GeneralInfo extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             fullName: "Sample Name",
             email: "example@gmail.com",
@@ -32,7 +32,6 @@ class GeneralInfo extends Component {
     handleChange(event) {
         const { name, value } = event.target
         this.setState({
-            //...this.state,
             [name]: value
         });
     }

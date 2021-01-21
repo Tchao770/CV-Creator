@@ -14,16 +14,28 @@ class App extends Component {
 			practicalArr: []
 		}
 		this.appendPractical = this.appendPractical.bind(this);
+		this.handleRemove = this.handleRemove.bind(this);
 	}
 
 	appendPractical() {
 		//    practicalArr.push((<Practical classname="sectionCard" />))
 		let tempArr = this.state.practicalArr;
-		tempArr.push((<Practical classname="sectionCard" key={tempArr.length} />));
+		let key = new window.Date();
+		tempArr.push(key.getTime());
 		this.setState({
 			practicalArr: tempArr
 		});
 	}
+
+	handleRemove(val) {
+		const tempArr = this.state.practicalArr;
+		let index = tempArr.indexOf(val);
+		tempArr.splice(index, 1);
+		this.setState({
+			practicalArr: tempArr
+		});
+	}
+
 	render() {
 		const { practicalArr } = this.state
 		return (
@@ -40,7 +52,7 @@ class App extends Component {
 					<div className="sideButton"></div>
 					{practicalArr.map(practical => {
 						return (
-							practical
+							<Practical classname="sectionCard" key={practical} itemId={practical} handleRemoveF={this.handleRemove} />
 						);
 					})
 

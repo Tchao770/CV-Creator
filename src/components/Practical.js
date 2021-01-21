@@ -20,6 +20,7 @@ class PracticalInfo extends Component{
         this.renderDisplay = this.renderDisplay.bind(this);
         this.renderEdit = this.renderEdit.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
+        this.removeButton = this.removeButton.bind(this);
     }
 
     toggleEdit() {
@@ -54,6 +55,10 @@ class PracticalInfo extends Component{
         });
     }
 
+    removeButton(){
+        this.props.handleRemoveF(this.props.itemId);
+    }
+
     renderDisplay() {
         const { companyName, position, yearsWorked } = this.state;
         return (
@@ -78,6 +83,7 @@ class PracticalInfo extends Component{
                     value={yearsWorked} onChange={this.handleChange} /><br />
                 <button onClick={this.handleSave}>Save</button>
                 <button onClick={this.handleCancel}>Cancel</button>
+                <button onClick={this.removeButton}>Remove</button>
             </div>
         );
     }

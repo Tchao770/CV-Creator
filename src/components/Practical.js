@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { MdDone, MdClear, MdDelete } from 'react-icons/md';
 
 class PracticalInfo extends Component{
     constructor() {
@@ -56,7 +57,7 @@ class PracticalInfo extends Component{
     }
 
     removeButton(){
-        this.props.handleRemoveF(this.props.itemId);
+        this.props.handleRemove(this.props.itemId);
     }
 
     renderDisplay() {
@@ -81,9 +82,9 @@ class PracticalInfo extends Component{
                     value={position} onChange={this.handleChange} /><br />
                 <input name="yearsWorked" placeholder="Years Worked"
                     value={yearsWorked} onChange={this.handleChange} /><br />
-                <button onClick={this.handleSave}>Save</button>
-                <button onClick={this.handleCancel}>Cancel</button>
-                <button onClick={this.removeButton}>Remove</button>
+                <button onClick={this.handleSave}><MdDone/></button>
+                <button onClick={this.handleCancel}><MdClear/></button>
+                <button onClick={this.removeButton}><MdDelete/></button>
             </div>
         );
     }

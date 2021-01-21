@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { MdDone, MdClear } from 'react-icons/md';
 
 class EducationalInfo extends Component {
     constructor() {
@@ -76,8 +77,8 @@ class EducationalInfo extends Component {
                     value={major} onChange={this.handleChange} /><br />
                 <input name="gradDate" placeholder="Graduation Date"
                     value={gradDate} onChange={this.handleChange} /><br />
-                <button onClick={this.handleSave}>Save</button>
-                <button onClick={this.handleCancel}>Cancel</button>
+                <button onClick={this.handleSave}><MdDone/></button>
+                <button onClick={this.handleCancel}><MdClear/></button>
             </div>
         );
     }

@@ -2,7 +2,7 @@ import General from "./components/General.js"
 import Educational from "./components/Educational.js"
 import Practical from "./components/Practical.js"
 import React, { Component } from 'react';
-
+import { MdLibraryAdd } from 'react-icons/md';
 
 import './styles/App.css';
 
@@ -37,7 +37,7 @@ class App extends Component {
 	}
 
 	render() {
-		const { practicalArr } = this.state
+		const { practicalArr } = this.state;
 		return (
 			<div>
 				<div className="container">
@@ -48,14 +48,13 @@ class App extends Component {
 					<div className="sideButton"></div>
 					<Educational classname="sectionCard" />
 					<hr style={{ width: "75%" }} />
-					<h2>Work Experience<button onClick={this.appendPractical}>Add</button></h2>
+					<h2>Work Experience<button onClick={this.appendPractical}><MdLibraryAdd/></button></h2>
 					<div className="sideButton"></div>
 					{practicalArr.map(practical => {
 						return (
-							<Practical classname="sectionCard" key={practical} itemId={practical} handleRemoveF={this.handleRemove} />
+							<Practical classname="sectionCard" key={practical} itemId={practical} handleRemove={this.handleRemove} />
 						);
 					})
-
 					}
 				</div>
 			</div>

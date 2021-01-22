@@ -1,6 +1,7 @@
 import General from "./components/General.js"
 import Educational from "./components/Educational.js"
 import Practical from "./components/Practical.js"
+import Skills from "./components/Skills.js"
 import React, { Component } from 'react';
 import { MdLibraryAdd } from 'react-icons/md';
 
@@ -11,22 +12,29 @@ class App extends Component {
 	constructor() {
 		super();
 		this.state = {
-			practicalArr: []
+			practicalArr: [],
+			skillsArr: []
 		}
 		this.appendPractical = this.appendPractical.bind(this);
 		this.handleRemove = this.handleRemove.bind(this);
 	}
 
-	appendPractical() {
+	appendPractical(type) {
 		//    practicalArr.push((<Practical classname="sectionCard" />))
-		let tempArr = this.state.practicalArr;
+		let tempArr = (type === "practical") ? this.state.practicalArr : this.state.skillsArr;
 		let key = new window.Date();
 		tempArr.push(key.getTime());
-		this.setState({
-			practicalArr: tempArr
-		});
+		if (type === "practical") {
+			this.setState({ practicalArr: tempArr }, () => {
+				console.log(this.state.practicalArr)
+			});
+		}
+		else if (type === "skills") {
+			this.setState({
+				skillsArr: tempArr
+			});
+		}
 	}
-
 	handleRemove(val) {
 		const tempArr = this.state.practicalArr;
 		let index = tempArr.indexOf(val);
@@ -37,7 +45,7 @@ class App extends Component {
 	}
 
 	render() {
-		const { practicalArr } = this.state;
+		const { practicalArr, skillsArr } = this.state;
 		return (
 			<div>
 				<div className="container">
@@ -48,11 +56,19 @@ class App extends Component {
 					<div className="sideButton"></div>
 					<Educational classname="sectionCard" />
 					<hr style={{ width: "75%" }} />
-					<h2>Work Experience<button onClick={this.appendPractical}><MdLibraryAdd/></button></h2>
+					<h2>Work Experience <button onClick={() => this.appendPractical("practical")}><MdLibraryAdd /></button></h2>
 					<div className="sideButton"></div>
 					{practicalArr.map(practical => {
 						return (
 							<Practical classname="sectionCard" key={practical} itemId={practical} handleRemove={this.handleRemove} />
+						);
+					})
+					}
+					<hr style={{ width: "75%" }} />
+					<h2>Skills <button onClick={() => this.appendPractical("skills")}><MdLibraryAdd /></button></h2>
+					{skillsArr.map(skill => {
+						return (
+							<Skills classname="sectionCard" key={skill} itemId={skill} handleRemove={this.handleRemove} />
 						);
 					})
 					}

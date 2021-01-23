@@ -77,8 +77,8 @@ class EducationalInfo extends Component {
                     value={major} onChange={this.handleChange} /><br />
                 <input name="gradDate" placeholder="Graduation Date"
                     value={gradDate} onChange={this.handleChange} /><br />
-                <button onClick={this.handleSave}><MdDone/></button>
-                <button onClick={this.handleCancel}><MdClear/></button>
+                <MdDone className="buttons" onClick={this.handleSave} />
+                <MdClear className="buttons" onClick={this.handleCancel} />
             </div>
         );
     }

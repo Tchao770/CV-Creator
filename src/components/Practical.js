@@ -8,6 +8,8 @@ class PracticalInfo extends Component {
             companyName: "Mount Olympus",
             position: "Pointious, God of Pointers",
             yearsWorked: "3 years",
+            task: "",
+            relevantTasks: [],
             editMode: true
         };
         this.temp = {
@@ -67,6 +69,10 @@ class PracticalInfo extends Component {
                 <h3>{companyName}</h3>
                 <p><b>Position: </b> {position}</p>
                 <p><b>Years worked: </b> {yearsWorked}</p>
+                <ul>
+                    <li>Work</li>
+                    <li>Pace</li>
+                </ul>
             </div>
         );
     }
@@ -75,16 +81,17 @@ class PracticalInfo extends Component {
         const { classname } = this.props;
         const { companyName, position, yearsWorked } = this.state;
         return (
-            <div className={classname}>
+            <div className={[classname, "pracDisplay"].join(' ')}>
                 <input name="companyName" placeholder="Company"
                     value={companyName} onChange={this.handleChange} /><br />
                 <input name="position" placeholder="Position"
                     value={position} onChange={this.handleChange} /><br />
                 <input name="yearsWorked" placeholder="Years Worked"
                     value={yearsWorked} onChange={this.handleChange} /><br />
-                <button onClick={this.handleSave}><MdDone /></button>
-                <button onClick={this.handleCancel}><MdClear /></button>
-                <button onClick={this.removeButton}><MdDelete /></button>
+                <textarea name="task" placeholder="Tasks" cols="45"/><br/>
+                <MdDone className="buttons" onClick={this.handleSave}/>
+                <MdClear className="buttons" onClick={this.handleCancel}/>
+                <MdDelete className="buttons" onClick={this.removeButton}/>
             </div>
         );
     }

@@ -5,6 +5,10 @@
   width: 80vw;
   padding-bottom: 20px;
   margin-top: 50px;
+  background-color: white;
+}
+body{
+  background-color: bisque;
 }
 
 .sideButton{
@@ -33,8 +37,20 @@
   padding-left: 40px;
 }
 
-.genDisplay:hover, .eduDisplay:hover {
+.genDisplay:hover, .eduDisplay:hover{
   background-color: antiquewhite;
+  animation-duration: 0.5ms;
+  user-select: none;
+  transition-duration: 0.4s;
+}
+
+.pracDisplay{
+  text-align: left;
+  padding-left: 2em;
+}
+
+.buttons:hover{
+  background-color: rgb(253, 197, 123);
   animation-duration: 0.5ms;
   user-select: none;
   transition-duration: 0.4s;

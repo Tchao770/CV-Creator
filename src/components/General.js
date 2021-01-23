@@ -78,8 +78,8 @@ class GeneralInfo extends Component {
                     value={email} onChange={this.handleChange} /><br />
                 <input name="number" placeholder="Phone Number"
                     value={number} onChange={this.handleChange} /><br />
-                <button onClick={this.handleSave}><MdDone/></button>
-                <button onClick={this.handleCancel}><MdClear/></button>
+                <MdDone className="buttons" onClick={this.handleSave}/>
+                <MdClear className="buttons" onClick={this.handleCancel}/>
             </div>
         );
     }

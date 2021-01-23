@@ -62,8 +62,8 @@ class SkillInfo extends Component {
         const { skill, level } = this.state;
         const rating = [];
 
-        for(let i = 0; i < this.state.level; i++){
-            rating.push("#");
+        for(let i = 0; i < level; i++){
+            rating.push("O");
         }
         
         return (
@@ -83,9 +83,9 @@ class SkillInfo extends Component {
                     value={skill} onChange={this.handleChange} /><br />
                 <input name="level" placeholder="level"
                     value={level} onChange={this.handleChange} /><br />
-                <button onClick={this.handleSave}><MdDone /></button>
-                <button onClick={this.handleCancel}><MdClear /></button>
-                <button onClick={this.removeButton}><MdDelete /></button>
+                <MdDone className="buttons" onClick={this.handleSave}/>
+                <MdClear className="buttons" onClick={this.handleCancel}/>
+                <MdDelete className="buttons" onClick={this.removeButton}/>
             </div>
         );
     }

@@ -63,7 +63,7 @@ class App extends Component {
 					<div className="sideButton"></div>
 					<Educational classname="sectionCard" />
 					<hr style={{ width: "75%" }} />
-					<h2>Work Experience <button onClick={() => this.appendPractical("practical")}><MdLibraryAdd /></button></h2>
+					<h2>Work Experience <MdLibraryAdd className="buttons" onClick={() => this.appendPractical("practical")}/></h2>
 					<div className="sideButton"></div>
 					{practicalArr.map(practical => {
 						return (
@@ -72,7 +72,7 @@ class App extends Component {
 					})
 					}
 					<hr style={{ width: "75%" }} />
-					<h2>Skills <button onClick={() => this.appendPractical("skills")}><MdLibraryAdd /></button></h2>
+					<h2>Skills <MdLibraryAdd className="buttons" onClick={() => this.appendPractical("skills")}/></h2>
 					{skillsArr.map(skill => {
 						return (
 							<Skills classname="sectionCard" key={skill} itemId={skill} handleRemove={()=>this.handleRemove(skill, "skills")} />

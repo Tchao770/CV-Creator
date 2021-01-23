@@ -25,8 +25,8 @@ class App extends Component {
 		let key = new window.Date();
 		tempArr.push(key.getTime());
 		if (type === "practical") {
-			this.setState({ practicalArr: tempArr }, () => {
-				console.log(this.state.practicalArr)
+			this.setState({
+				practicalArr: tempArr
 			});
 		}
 		else if (type === "skills") {
@@ -35,13 +35,20 @@ class App extends Component {
 			});
 		}
 	}
-	handleRemove(val) {
-		const tempArr = this.state.practicalArr;
+	handleRemove(val, type) {
+		const tempArr = (type === "practical") ? this.state.practicalArr : this.state.skillsArr;
 		let index = tempArr.indexOf(val);
 		tempArr.splice(index, 1);
-		this.setState({
-			practicalArr: tempArr
-		});
+		if (type === "practical") {
+			this.setState({
+				practicalArr: tempArr
+			});
+		}
+		else if (type === "skills") {
+			this.setState({
+				skillsArr: tempArr
+			});
+		}
 	}
 
 	render() {
@@ -60,7 +67,7 @@ class App extends Component {
 					<div className="sideButton"></div>
 					{practicalArr.map(practical => {
 						return (
-							<Practical classname="sectionCard" key={practical} itemId={practical} handleRemove={this.handleRemove} />
+							<Practical classname="sectionCard" key={practical} itemId={practical} handleRemove={()=>this.handleRemove(practical, "practical")} />
 						);
 					})
 					}
@@ -68,7 +75,7 @@ class App extends Component {
 					<h2>Skills <button onClick={() => this.appendPractical("skills")}><MdLibraryAdd /></button></h2>
 					{skillsArr.map(skill => {
 						return (
-							<Skills classname="sectionCard" key={skill} itemId={skill} handleRemove={this.handleRemove} />
+							<Skills classname="sectionCard" key={skill} itemId={skill} handleRemove={()=>this.handleRemove(skill, "skills")} />
 						);
 					})
 					}

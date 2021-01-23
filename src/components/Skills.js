@@ -6,7 +6,7 @@ class SkillInfo extends Component {
         super();
         this.state = {
             skill: "Javascript",
-            level: "5",
+            level: 5,
             editMode: true
         };
         this.temp = {
@@ -60,10 +60,16 @@ class SkillInfo extends Component {
 
     renderDisplay() {
         const { skill, level } = this.state;
+        const rating = [];
+
+        for(let i = 0; i < this.state.level; i++){
+            rating.push("#");
+        }
+        
         return (
             <div className="eduDisplay" onClick={this.toggleEdit}>
                 <h3>Skill: {skill}</h3>
-                <p><b>level: </b> {level}</p>
+                <p><b>level: </b> {rating}</p>
             </div>
         );
     }

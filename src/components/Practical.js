@@ -61,6 +61,7 @@ class PracticalInfo extends Component {
         this.props.handleRemove(this.props.itemId);
     }
 
+    
 
     renderDisplay() {
         const { companyName, position, yearsWorked, task } = this.state;

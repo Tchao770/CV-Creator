@@ -81,7 +81,7 @@ class SkillInfo extends Component {
             <div className={classname}>
                 <input name="skill" placeholder="Skill"
                     value={skill} onChange={this.handleChange} /><br />
-                <input name="level" placeholder="level"
+                <input type="number" name="level" 
                     value={level} onChange={this.handleChange} /><br />
                 <MdDone className="buttons" onClick={this.handleSave}/>
                 <MdClear className="buttons" onClick={this.handleCancel}/>

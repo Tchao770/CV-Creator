@@ -5,8 +5,8 @@ class SkillInfo extends Component {
     constructor() {
         super();
         this.state = {
-            skill: "Javascript",
-            level: 5,
+            skill: "",
+            level: 0,
             editMode: true
         };
         this.temp = {
@@ -79,7 +79,7 @@ class SkillInfo extends Component {
         const { skill, level } = this.state;
         return (
             <div className={classname}>
-                <input name="skill" placeholder="Company"
+                <input name="skill" placeholder="Skill"
                     value={skill} onChange={this.handleChange} /><br />
                 <input name="level" placeholder="level"
                     value={level} onChange={this.handleChange} /><br />

@@ -5,9 +5,9 @@ class EducationalInfo extends Component {
     constructor() {
         super();
         this.state = {
-            schoolName: "Sample University",
-            major: "Computer Science",
-            gradDate: "06/2020",
+            schoolName: "",
+            major: "",
+            gradDate: "",
             editMode: true
         };
         this.temp = {

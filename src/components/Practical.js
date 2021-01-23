@@ -5,11 +5,10 @@ class PracticalInfo extends Component {
     constructor() {
         super();
         this.state = {
-            companyName: "Mount Olympus",
-            position: "Pointious, God of Pointers",
-            yearsWorked: "3 years",
+            companyName: "",
+            position: "",
+            yearsWorked: "",
             task: "",
-            relevantTasks: [],
             editMode: true
         };
         this.temp = {
@@ -62,16 +61,22 @@ class PracticalInfo extends Component {
         this.props.handleRemove(this.props.itemId);
     }
 
+
     renderDisplay() {
-        const { companyName, position, yearsWorked } = this.state;
+        const { companyName, position, yearsWorked, task } = this.state;
+        const taskArr = task.split(/\r?\n/);
+
         return (
             <div className="eduDisplay" onClick={this.toggleEdit}>
                 <h3>{companyName}</h3>
                 <p><b>Position: </b> {position}</p>
                 <p><b>Years worked: </b> {yearsWorked}</p>
                 <ul>
-                    <li>Work</li>
-                    <li>Pace</li>
+                    {
+                        taskArr.map(task => {
+                            return <li>{task}</li>
+                        })
+                    }
                 </ul>
             </div>
         );
@@ -79,7 +84,7 @@ class PracticalInfo extends Component {
 
     renderEdit() {
         const { classname } = this.props;
-        const { companyName, position, yearsWorked } = this.state;
+        const { companyName, position, yearsWorked, task } = this.state;
         return (
             <div className={[classname, "pracDisplay"].join(' ')}>
                 <input name="companyName" placeholder="Company"
@@ -88,10 +93,10 @@ class PracticalInfo extends Component {
                     value={position} onChange={this.handleChange} /><br />
                 <input name="yearsWorked" placeholder="Years Worked"
                     value={yearsWorked} onChange={this.handleChange} /><br />
-                <textarea name="task" placeholder="Tasks" cols="45"/><br/>
-                <MdDone className="buttons" onClick={this.handleSave}/>
-                <MdClear className="buttons" onClick={this.handleCancel}/>
-                <MdDelete className="buttons" onClick={this.removeButton}/>
+                <textarea name="task" placeholder="Tasks(Press enter for new task)" value={task} rows="10" cols="22" onChange={this.handleChange} /><br />
+                <MdDone className="buttons" onClick={this.handleSave} />
+                <MdClear className="buttons" onClick={this.handleCancel} />
+                <MdDelete className="buttons" onClick={this.removeButton} />
             </div>
         );
     }

@@ -40,7 +40,7 @@ class EducationalInfo extends Component {
 
     handleSave(event) {
         event.preventDefault();
-        const [school, major, date] = event.target.parentNode;
+        const [school, major, date] = event.target;
         const options = [school.value, major.value, date.value]
         if (options.indexOf("") > -1) {
             alert("Please fill out all fields in Educational section")
@@ -78,7 +78,7 @@ class EducationalInfo extends Component {
         const { classname } = this.props;
         const { schoolName, major, gradDate } = this.state;
         return (
-            <form className={classname}>
+            <form className={classname} onSubmit={this.handleSave}>
                 <label>Institution</label><br />
                 <input name="schoolName" placeholder="University"
                     value={schoolName} onChange={this.handleChange} /><br />
@@ -89,8 +89,8 @@ class EducationalInfo extends Component {
                 <input name="gradDate" placeholder="Expected MM/YYYY, or MM/YYYY"
                     value={gradDate} onChange={this.handleChange} /><br />
                 <IconContext.Provider value={{ size: "2em" }}>
-                <MdDone className="buttons" onClick={this.handleSave} />
-                    <MdClear className="buttons" onClick={this.handleCancel} />
+                    <button type="submit"><MdDone className="buttons" /></button>
+                    <button><MdClear className="buttons" onClick={this.handleCancel} /></button>
                 </IconContext.Provider>
             </form>
         );

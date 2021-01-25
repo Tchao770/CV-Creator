@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import { MdDone, MdClear, MdDelete } from 'react-icons/md';
 import { IconContext } from 'react-icons';
 
+function MdButtons(props) {
+    <IconContext.Provider value={{ size: "2em" }}>
+        <button type="submit"><MdDone className="buttons" /></button>
+        <button><MdClear className="buttons" onClick={this.handleCancel} /></button>
+        <button><MdDelete className="buttons" onClick={props.removeButton} /></button>
+    </IconContext.Provider>
+}
+
 class PracticalInfo extends Component {
     constructor() {
         super();
@@ -44,7 +52,7 @@ class PracticalInfo extends Component {
 
     handleSave(event) {
         event.preventDefault();
-        const [company, position, timeB, timeE] = event.target.parentNode;
+        const [company, position, timeB, timeE] = event.target;
         const options = [company.value, position.value, timeB.value, timeE.value]
         if (options.indexOf("") > -1) {
             alert("Please fill out all fields in Practical Experience section")
@@ -97,7 +105,7 @@ class PracticalInfo extends Component {
         const { classname } = this.props;
         const { companyName, position, timeBegin, timeEnd, task } = this.state;
         return (
-            <form className={classname}>
+            <form className={classname} onSubmit={this.handleSave}>
                 <label>Company Name</label><br />
                 <input name="companyName" placeholder="Name of Company"
                     value={companyName} onChange={this.handleChange} /><br />
@@ -113,9 +121,9 @@ class PracticalInfo extends Component {
                 <label>Relevant Tasks</label><br />
                 <textarea name="task" placeholder="Press enter for new task" value={task} rows="5" cols="33" onChange={this.handleChange} /><br />
                 <IconContext.Provider value={{ size: "2em" }}>
-                <MdDone className="buttons" onClick={this.handleSave} />
-                    <MdClear className="buttons" onClick={this.handleCancel} />
-                    <MdDelete className="buttons" onClick={this.removeButton} />
+                    <button type="submit"><MdDone className="buttons" /></button>
+                    <button><MdClear className="buttons" onClick={this.handleCancel} /></button>
+                    <button><MdDelete className="buttons" onClick={this.removeButton} /></button>
                 </IconContext.Provider>
             </form>
         );

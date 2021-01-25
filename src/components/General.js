@@ -40,7 +40,7 @@ class GeneralInfo extends Component {
 
     handleSave(event) {
         event.preventDefault();
-        const [name, email, number] = event.target.parentNode;
+        const [name, email, number] = event.target;
         const options = [name.value, email.value, number.value]
         if (options.indexOf("") > -1) {
             alert("Please fill out all fields in General Section")
@@ -74,11 +74,12 @@ class GeneralInfo extends Component {
         );
     }
 
+
     renderEdit() {
         const { classname } = this.props;
         const { fullName, email, number } = this.state;
         return (
-            <form className={classname}>
+            <form className={classname} onSubmit={this.handleSave}>
                 <h2 style={{ textAlign: "left" }}>General</h2>
                 <label>Full Name</label><br />
                 <input name="fullName" type="text" placeholder="Full Name"
@@ -90,8 +91,8 @@ class GeneralInfo extends Component {
                 <input name="number" placeholder="(XXX)XXX-XXXX"
                     value={number} onChange={this.handleChange} /><br />
                 <IconContext.Provider value={{ size: "2em" }}>
-                    <MdDone className="buttons" onClick={this.handleSave} />
-                    <MdClear className="buttons" onClick={this.handleCancel} />
+                    <button type="submit"><MdDone className="buttons" /></button>
+                    <button><MdClear className="buttons" onClick={this.handleCancel} /></button>
                 </IconContext.Provider>
             </form>
         );

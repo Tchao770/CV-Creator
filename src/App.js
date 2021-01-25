@@ -62,7 +62,7 @@ class App extends Component {
 			<div>
 				<div className="container">
 					<div className="sideButton"></div>
-					<General classname="sectionCard"/>
+					<General classname="sectionCard" />
 					<hr style={{ width: "75%" }} />
 					<h2>Education</h2>
 					<div className="sideButton"></div>

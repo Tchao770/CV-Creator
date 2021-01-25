@@ -39,7 +39,7 @@ class SkillInfo extends Component {
 
     handleSave(event) {
         event.preventDefault();
-        if (event.target.parentNode[0].value === "") {
+        if (event.target[0].value === "") {
             alert("Please fill out all fields in Skills section")
         }
         else {
@@ -83,7 +83,7 @@ class SkillInfo extends Component {
         const { classname } = this.props;
         const { skill, level } = this.state;
         return (
-            <form className={classname} >
+            <form className={classname} onSubmit={this.handleSave}>
                 <label>Skill</label><br />
                 <input name="skill" placeholder="C++, Python, etc."
                     value={skill} onChange={this.handleChange} /><br />
@@ -91,9 +91,9 @@ class SkillInfo extends Component {
                 <input type="number" name="level"
                 value={level} onChange={this.handleChange} /><br />*/}
                 <IconContext.Provider value={{ size: "2em" }}>
-                <MdDone className="buttons" onClick={this.handleSave} />
-                    <MdClear className="buttons" onClick={this.handleCancel} />
-                    <MdDelete className="buttons" onClick={this.removeButton} />
+                    <button type="submit"><MdDone className="buttons" /></button>
+                    <button><MdClear className="buttons" onClick={this.handleCancel} /></button>
+                    <button><MdDelete className="buttons" onClick={this.removeButton} /></button>
                 </IconContext.Provider>
             </form>
         );

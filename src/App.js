@@ -68,7 +68,7 @@ class App extends Component {
 					<div className="sideButton"></div>
 					<Educational classname="sectionCard" />
 					<hr style={{ width: "75%" }} />
-					<h2>Work Experience <MdLibraryAdd className="buttons" onClick={() => this.appendPractical("practical")} /></h2>
+					<h2>Practical Experience <MdLibraryAdd className="buttons" onClick={() => this.appendPractical("practical")} /></h2>
 					<div className="sideButton"></div>
 					{practicalArr.map(practical => {
 						return (

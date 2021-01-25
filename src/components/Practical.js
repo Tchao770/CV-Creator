@@ -46,7 +46,7 @@ class PracticalInfo extends Component {
         const [company, position, timeB, timeE] = event.target;
         const options = [company.value, position.value, timeB.value, timeE.value]
         if (options.indexOf("") > -1) {
-            alert("Please fill out all fields in Practical section")
+            alert("Please fill out all fields in Practical Experience section")
         }
         else {
             this.setState({
@@ -110,7 +110,7 @@ class PracticalInfo extends Component {
                 <input name="timeEnd" placeholder="MM/YYYY or Current"
                     value={timeEnd} onChange={this.handleChange} /><br />
                 <label>Relevant Tasks</label><br />
-                <textarea name="task" placeholder="Press enter for new task" value={task} rows="10" cols="22" onChange={this.handleChange} /><br />
+                <textarea name="task" placeholder="Press enter for new task" value={task} rows="2" cols="33" onChange={this.handleChange} /><br />
                 <button type="submit"><MdDone className="buttons" /></button>
                 <MdClear className="buttons" onClick={this.handleCancel} />
                 <MdDelete className="buttons" onClick={this.removeButton} />

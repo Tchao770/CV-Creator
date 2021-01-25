@@ -2,14 +2,6 @@ import React, { Component } from 'react';
 import { MdDone, MdClear, MdDelete } from 'react-icons/md';
 import { IconContext } from 'react-icons';
 
-function MdButtons(props) {
-    <IconContext.Provider value={{ size: "2em" }}>
-        <button type="submit"><MdDone className="buttons" /></button>
-        <button><MdClear className="buttons" onClick={this.handleCancel} /></button>
-        <button><MdDelete className="buttons" onClick={props.removeButton} /></button>
-    </IconContext.Provider>
-}
-
 class PracticalInfo extends Component {
     constructor() {
         super();

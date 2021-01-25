@@ -81,7 +81,7 @@ class SkillInfo extends Component {
 
     renderEdit() {
         const { classname } = this.props;
-        const { skill, level } = this.state;
+        const { skill } = this.state;
         return (
             <form className={classname} onSubmit={this.handleSave}>
                 <label>Skill</label><br />

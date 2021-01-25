@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { MdDone, MdClear } from 'react-icons/md';
+import { IconContext } from 'react-icons';
 
 class EducationalInfo extends Component {
     constructor() {
@@ -39,7 +40,7 @@ class EducationalInfo extends Component {
 
     handleSave(event) {
         event.preventDefault();
-        const [school, major, date] = event.target;
+        const [school, major, date] = event.target.parentNode;
         const options = [school.value, major.value, date.value]
         if (options.indexOf("") > -1) {
             alert("Please fill out all fields in Educational section")
@@ -77,7 +78,7 @@ class EducationalInfo extends Component {
         const { classname } = this.props;
         const { schoolName, major, gradDate } = this.state;
         return (
-            <form className={classname} onSubmit={this.handleSave}>
+            <form className={classname}>
                 <label>Institution</label><br />
                 <input name="schoolName" placeholder="University"
                     value={schoolName} onChange={this.handleChange} /><br />
@@ -87,8 +88,10 @@ class EducationalInfo extends Component {
                 <label>Graduation Date</label><br />
                 <input name="gradDate" placeholder="Expected MM/YYYY, or MM/YYYY"
                     value={gradDate} onChange={this.handleChange} /><br />
-                <button type="submit"><MdDone className="buttons"/></button>
-                <MdClear className="buttons" onClick={this.handleCancel} />
+                <IconContext.Provider value={{ size: "2em" }}>
+                <MdDone className="buttons" onClick={this.handleSave} />
+                    <MdClear className="buttons" onClick={this.handleCancel} />
+                </IconContext.Provider>
             </form>
         );
     }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { MdDone, MdClear, MdDelete } from 'react-icons/md';
+import { IconContext } from 'react-icons';
 
 class SkillInfo extends Component {
     constructor() {
@@ -38,7 +39,7 @@ class SkillInfo extends Component {
 
     handleSave(event) {
         event.preventDefault();
-        if (event.target[0].value === "") {
+        if (event.target.parentNode[0].value === "") {
             alert("Please fill out all fields in Skills section")
         }
         else {
@@ -82,16 +83,18 @@ class SkillInfo extends Component {
         const { classname } = this.props;
         const { skill, level } = this.state;
         return (
-            <form className={classname} onSubmit={this.handleSave}>
+            <form className={classname} >
                 <label>Skill</label><br />
                 <input name="skill" placeholder="C++, Python, etc."
                     value={skill} onChange={this.handleChange} /><br />
                 {/*<label>Level (Out of 10)</label><br />
                 <input type="number" name="level"
                 value={level} onChange={this.handleChange} /><br />*/}
-                <button type="submit"><MdDone className="buttons" /></button>
-                <MdClear className="buttons" onClick={this.handleCancel} />
-                <MdDelete className="buttons" onClick={this.removeButton} />
+                <IconContext.Provider value={{ size: "2em" }}>
+                <MdDone className="buttons" onClick={this.handleSave} />
+                    <MdClear className="buttons" onClick={this.handleCancel} />
+                    <MdDelete className="buttons" onClick={this.removeButton} />
+                </IconContext.Provider>
             </form>
         );
     }

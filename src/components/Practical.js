@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { MdDone, MdClear, MdDelete } from 'react-icons/md';
+import { IconContext } from 'react-icons';
 
 class PracticalInfo extends Component {
     constructor() {
@@ -43,7 +44,7 @@ class PracticalInfo extends Component {
 
     handleSave(event) {
         event.preventDefault();
-        const [company, position, timeB, timeE] = event.target;
+        const [company, position, timeB, timeE] = event.target.parentNode;
         const options = [company.value, position.value, timeB.value, timeE.value]
         if (options.indexOf("") > -1) {
             alert("Please fill out all fields in Practical Experience section")
@@ -96,7 +97,7 @@ class PracticalInfo extends Component {
         const { classname } = this.props;
         const { companyName, position, timeBegin, timeEnd, task } = this.state;
         return (
-            <form className={[classname, "pracDisplay"].join(' ')} onSubmit={this.handleSave}>
+            <form className={classname}>
                 <label>Company Name</label><br />
                 <input name="companyName" placeholder="Name of Company"
                     value={companyName} onChange={this.handleChange} /><br />
@@ -110,10 +111,12 @@ class PracticalInfo extends Component {
                 <input name="timeEnd" placeholder="MM/YYYY or Current"
                     value={timeEnd} onChange={this.handleChange} /><br />
                 <label>Relevant Tasks</label><br />
-                <textarea name="task" placeholder="Press enter for new task" value={task} rows="2" cols="33" onChange={this.handleChange} /><br />
-                <button type="submit"><MdDone className="buttons" /></button>
-                <MdClear className="buttons" onClick={this.handleCancel} />
-                <MdDelete className="buttons" onClick={this.removeButton} />
+                <textarea name="task" placeholder="Press enter for new task" value={task} rows="5" cols="33" onChange={this.handleChange} /><br />
+                <IconContext.Provider value={{ size: "2em" }}>
+                <MdDone className="buttons" onClick={this.handleSave} />
+                    <MdClear className="buttons" onClick={this.handleCancel} />
+                    <MdDelete className="buttons" onClick={this.removeButton} />
+                </IconContext.Provider>
             </form>
         );
     }

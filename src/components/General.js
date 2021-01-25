@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { MdDone, MdClear, MdPhone, MdEmail } from 'react-icons/md';
+import { IconContext } from 'react-icons';
 
 class GeneralInfo extends Component {
     constructor() {
@@ -39,7 +40,7 @@ class GeneralInfo extends Component {
 
     handleSave(event) {
         event.preventDefault();
-        const [name, email, number] = event.target;
+        const [name, email, number] = event.target.parentNode;
         const options = [name.value, email.value, number.value]
         if (options.indexOf("") > -1) {
             alert("Please fill out all fields in General Section")
@@ -62,16 +63,12 @@ class GeneralInfo extends Component {
         });
     }
 
-    handleValidation() {
-        let fields = this.state.fields;
-    }
-
     renderDisplay() {
         const { fullName, email, number } = this.state;
         return (
             <div className="genDisplay" onClick={this.toggleEdit}>
                 <h1 id="fullName">{fullName}</h1>
-                <p id="email"><MdEmail /> {email}</p>
+                <p id="email"><MdEmail value={{ size: "200em" }} /> {email}</p>
                 <p id="phone"><MdPhone /> {number}</p>
             </div>
         );
@@ -81,28 +78,27 @@ class GeneralInfo extends Component {
         const { classname } = this.props;
         const { fullName, email, number } = this.state;
         return (
-            <form className={classname} onSubmit={this.handleSave} noValidate>
-                <h2>General</h2>
+            <form className={classname}>
+                <h2 style={{ textAlign: "left" }}>General</h2>
                 <label>Full Name</label><br />
                 <input name="fullName" type="text" placeholder="Full Name"
-                    value={fullName} onChange={this.handleChange} required /><br />
+                    value={fullName} onChange={this.handleChange} /><br />
                 <label>E-mail</label><br />
                 <input name="email" type="email" placeholder="E-mail"
-                    value={email} onChange={this.handleChange} required /><br />
+                    value={email} onChange={this.handleChange} /><br />
                 <label>Phone Number</label><br />
                 <input name="number" placeholder="(XXX)XXX-XXXX"
-                    value={number} onChange={this.handleChange} required /><br />
-                <button type="submit"><MdDone className="buttons" /></button>
-                <MdClear className="buttons" onClick={this.handleCancel} />
+                    value={number} onChange={this.handleChange} /><br />
+                <IconContext.Provider value={{ size: "2em" }}>
+                    <MdDone className="buttons" onClick={this.handleSave} />
+                    <MdClear className="buttons" onClick={this.handleCancel} />
+                </IconContext.Provider>
             </form>
         );
     }
 
     render() {
-        if (this.state.editMode)
-            return this.renderEdit();
-        else
-            return this.renderDisplay();
+        return (this.state.editMode) ? this.renderEdit() : this.renderDisplay();
     }
 }
 

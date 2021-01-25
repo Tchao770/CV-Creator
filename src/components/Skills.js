@@ -62,14 +62,14 @@ class SkillInfo extends Component {
         const { skill, level } = this.state;
         const rating = [];
 
-        for(let i = 0; i < level; i++){
+        for (let i = 0; i < level; i++) {
             rating.push("O");
         }
-        
+
         return (
             <div className="eduDisplay" onClick={this.toggleEdit}>
-                <h3>Skill: {skill}</h3>
-                <p><b>level: </b> {rating}</p>
+                <h3>- {skill} {rating}</h3>
+                {/*<p><b></b> {rating}</p>*/}
             </div>
         );
     }
@@ -79,13 +79,15 @@ class SkillInfo extends Component {
         const { skill, level } = this.state;
         return (
             <div className={classname}>
-                <input name="skill" placeholder="Skill"
+                <label>Skill</label><br />
+                <input name="skill" placeholder="C++, Python, etc."
                     value={skill} onChange={this.handleChange} /><br />
-                <input type="number" name="level" 
-                    value={level} onChange={this.handleChange} /><br />
-                <MdDone className="buttons" onClick={this.handleSave}/>
-                <MdClear className="buttons" onClick={this.handleCancel}/>
-                <MdDelete className="buttons" onClick={this.removeButton}/>
+                {/*<label>Level (Out of 10)</label><br />
+                <input type="number" name="level"
+                value={level} onChange={this.handleChange} /><br />*/}
+                <MdDone className="buttons" onClick={this.handleSave} />
+                <MdClear className="buttons" onClick={this.handleCancel} />
+                <MdDelete className="buttons" onClick={this.removeButton} />
             </div>
         );
     }

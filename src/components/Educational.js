@@ -59,9 +59,9 @@ class EducationalInfo extends Component {
         const { schoolName, major, gradDate } = this.state;
         return (
             <div className="eduDisplay" onClick={this.toggleEdit}>
-                <h3>{schoolName}</h3>
-                <p><b>Major: </b> {major}</p>
-                <p><b>Graduation Date: </b> {gradDate}</p>
+                <h3>{major}</h3>
+                <p>{schoolName}</p>
+                <p>Graduation: {gradDate}</p>
             </div>
         );
     }
@@ -71,11 +71,14 @@ class EducationalInfo extends Component {
         const { schoolName, major, gradDate } = this.state;
         return (
             <div className={classname}>
-                <input name="schoolName" placeholder="Institution"
+                <label>Institution</label><br />
+                <input name="schoolName" placeholder="University"
                     value={schoolName} onChange={this.handleChange} /><br />
-                <input name="major" placeholder="Major"
+                <label>Major</label><br />
+                <input name="major" placeholder="BS/AA, Major"
                     value={major} onChange={this.handleChange} /><br />
-                <input name="gradDate" placeholder="Graduation Date"
+                <label>Graduation Date</label><br />
+                <input name="gradDate" placeholder="Expected MM/YYYY, or MM/YYYY"
                     value={gradDate} onChange={this.handleChange} /><br />
                 <MdDone className="buttons" onClick={this.handleSave} />
                 <MdClear className="buttons" onClick={this.handleCancel} />

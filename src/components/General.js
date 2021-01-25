@@ -5,9 +5,9 @@ class GeneralInfo extends Component {
     constructor() {
         super();
         this.state = {
-            fullName: "Sample Name",
-            email: "example@gmail.com",
-            number: "(123) 456-7890",
+            fullName: "",
+            email: "",
+            number: "",
             editMode: true
         };
         this.temp = {
@@ -72,14 +72,17 @@ class GeneralInfo extends Component {
         return (
             <div className={classname}>
                 <h2>General</h2>
+                <label>Full Name</label><br />
                 <input name="fullName" type="text" placeholder="Full Name"
                     value={fullName} onChange={this.handleChange} /><br />
+                <label>E-mail</label><br />
                 <input name="email" type="email" placeholder="E-mail"
                     value={email} onChange={this.handleChange} /><br />
-                <input name="number" placeholder="Phone Number"
+                <label>Phone Number</label><br />
+                <input name="number" placeholder="(XXX)XXX-XXXX"
                     value={number} onChange={this.handleChange} /><br />
-                <MdDone className="buttons" onClick={this.handleSave}/>
-                <MdClear className="buttons" onClick={this.handleCancel}/>
+                <MdDone className="buttons" onClick={this.handleSave} />
+                <MdClear className="buttons" onClick={this.handleCancel} />
             </div>
         );
     }

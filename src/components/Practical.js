@@ -7,14 +7,16 @@ class PracticalInfo extends Component {
         this.state = {
             companyName: "",
             position: "",
-            yearsWorked: "",
+            timeBegin: "",
+            timeEnd: "",
             task: "",
             editMode: true
         };
         this.temp = {
             companyName: "",
             position: "",
-            yearsWorked: "",
+            timeBegin: "",
+            timeEnd: "",
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSave = this.handleSave.bind(this);
@@ -48,11 +50,12 @@ class PracticalInfo extends Component {
     }
 
     handleCancel(event) {
-        const { companyName, position, yearsWorked } = this.temp;
+        const { companyName, position, timeBegin, timeEnd } = this.temp;
         this.setState({
             companyName: companyName,
             position: position,
-            yearsWorked: yearsWorked,
+            timeBegin: timeBegin,
+            timeEnd: timeEnd,
             editMode: false
         });
     }
@@ -61,17 +64,16 @@ class PracticalInfo extends Component {
         this.props.handleRemove(this.props.itemId);
     }
 
-    
+
 
     renderDisplay() {
-        const { companyName, position, yearsWorked, task } = this.state;
+        const { companyName, position, timeBegin, timeEnd, task } = this.state;
         const taskArr = task.split(/\r?\n/);
 
         return (
             <div className="eduDisplay" onClick={this.toggleEdit}>
-                <h3>{companyName}</h3>
-                <p><b>Position: </b> {position}</p>
-                <p><b>Years worked: </b> {yearsWorked}</p>
+                <h3>{position}</h3>
+                <p>{companyName}, {timeBegin} - {timeEnd}</p>
                 <ul>
                     {
                         taskArr.map(task => {
@@ -85,16 +87,23 @@ class PracticalInfo extends Component {
 
     renderEdit() {
         const { classname } = this.props;
-        const { companyName, position, yearsWorked, task } = this.state;
+        const { companyName, position, timeBegin, timeEnd, task } = this.state;
         return (
             <div className={[classname, "pracDisplay"].join(' ')}>
-                <input name="companyName" placeholder="Company"
+                <label>Company Name</label><br />
+                <input name="companyName" placeholder="Name of Company"
                     value={companyName} onChange={this.handleChange} /><br />
-                <input name="position" placeholder="Position"
+                <label>Position</label><br />
+                <input name="position" placeholder="Fullstack Developer, etc."
                     value={position} onChange={this.handleChange} /><br />
-                <input name="yearsWorked" placeholder="Years Worked"
-                    value={yearsWorked} onChange={this.handleChange} /><br />
-                <textarea name="task" placeholder="Tasks(Press enter for new task)" value={task} rows="10" cols="22" onChange={this.handleChange} /><br />
+                <label>First Month of Employment</label><br />
+                <input name="timeBegin" placeholder="MM/YYYY"
+                    value={timeBegin} onChange={this.handleChange} /><br />
+                <label>Last Month of Employment</label><br />
+                <input name="timeEnd" placeholder="MM/YYYY or Current"
+                    value={timeEnd} onChange={this.handleChange} /><br />
+                <label>Relevant Tasks</label><br/>
+                <textarea name="task" placeholder="Press enter for new task" value={task} rows="10" cols="22" onChange={this.handleChange} /><br />
                 <MdDone className="buttons" onClick={this.handleSave} />
                 <MdClear className="buttons" onClick={this.handleCancel} />
                 <MdDelete className="buttons" onClick={this.removeButton} />

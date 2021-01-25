@@ -1,3 +1,15 @@
+h3{
+  margin-bottom: 0;
+}
+input{
+  columns: 50;
+}
+p{
+  margin: 0;
+}
+ul{
+  margin-top: 0;
+}
 .container {
   position: relative;
   margin: auto;
@@ -7,11 +19,12 @@
   margin-top: 50px;
   background-color: white;
 }
-body{
+
+body {
   background-color: bisque;
 }
 
-.sideButton{
+.sideButton {
   position: absolute;
   background-color: antiquewhite;
   width: 20px;
@@ -23,7 +36,8 @@ body{
 }
 
 .sectionCard {
-  text-align: center;
+  text-align: left;
+  padding-left: 2em;
   padding-bottom: 10px;
 }
 
@@ -37,19 +51,19 @@ body{
   padding-left: 40px;
 }
 
-.genDisplay:hover, .eduDisplay:hover{
+.genDisplay:hover, .eduDisplay:hover {
   background-color: antiquewhite;
   animation-duration: 0.5ms;
   user-select: none;
   transition-duration: 0.4s;
 }
 
-.pracDisplay{
+.pracDisplay {
   text-align: left;
   padding-left: 2em;
 }
 
-.buttons:hover{
+.buttons:hover {
   background-color: rgb(253, 197, 123);
   animation-duration: 0.5ms;
   user-select: none;

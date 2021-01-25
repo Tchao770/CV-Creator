@@ -37,19 +37,23 @@ class SkillInfo extends Component {
     }
 
     handleSave(event) {
-        this.setState({
-            [event.target.name]: event.target.value,
-            editMode: false
-        });
         event.preventDefault();
+        if (event.target[0].value === "") {
+            alert("Please fill out all fields in Skills section")
+        }
+        else {
+            this.setState({
+                [event.target.name]: event.target.value,
+                editMode: false
+            });
+        }
     }
 
     handleCancel(event) {
-        const { skill, level, yearsWorked } = this.temp;
+        const { skill, level } = this.temp;
         this.setState({
             skill: skill,
             level: level,
-            yearsWorked: yearsWorked,
             editMode: false
         });
     }
@@ -68,7 +72,7 @@ class SkillInfo extends Component {
 
         return (
             <div className="eduDisplay" onClick={this.toggleEdit}>
-                <h3>- {skill} {rating}</h3>
+                <h3>- {skill}</h3>
                 {/*<p><b></b> {rating}</p>*/}
             </div>
         );
@@ -78,17 +82,17 @@ class SkillInfo extends Component {
         const { classname } = this.props;
         const { skill, level } = this.state;
         return (
-            <div className={classname}>
+            <form className={classname} onSubmit={this.handleSave}>
                 <label>Skill</label><br />
                 <input name="skill" placeholder="C++, Python, etc."
                     value={skill} onChange={this.handleChange} /><br />
                 {/*<label>Level (Out of 10)</label><br />
                 <input type="number" name="level"
                 value={level} onChange={this.handleChange} /><br />*/}
-                <MdDone className="buttons" onClick={this.handleSave} />
+                <button type="submit"><MdDone className="buttons" /></button>
                 <MdClear className="buttons" onClick={this.handleCancel} />
                 <MdDelete className="buttons" onClick={this.removeButton} />
-            </div>
+            </form>
         );
     }
 

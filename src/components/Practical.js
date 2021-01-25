@@ -42,11 +42,18 @@ class PracticalInfo extends Component {
     }
 
     handleSave(event) {
-        this.setState({
-            [event.target.name]: event.target.value,
-            editMode: false
-        });
         event.preventDefault();
+        const [company, position, timeB, timeE] = event.target;
+        const options = [company.value, position.value, timeB.value, timeE.value]
+        if (options.indexOf("") > -1) {
+            alert("Please fill out all fields in Practical section")
+        }
+        else {
+            this.setState({
+                [event.target.name]: event.target.value,
+                editMode: false
+            });
+        }
     }
 
     handleCancel(event) {
@@ -89,7 +96,7 @@ class PracticalInfo extends Component {
         const { classname } = this.props;
         const { companyName, position, timeBegin, timeEnd, task } = this.state;
         return (
-            <div className={[classname, "pracDisplay"].join(' ')}>
+            <form className={[classname, "pracDisplay"].join(' ')} onSubmit={this.handleSave}>
                 <label>Company Name</label><br />
                 <input name="companyName" placeholder="Name of Company"
                     value={companyName} onChange={this.handleChange} /><br />
@@ -102,12 +109,12 @@ class PracticalInfo extends Component {
                 <label>Last Month of Employment</label><br />
                 <input name="timeEnd" placeholder="MM/YYYY or Current"
                     value={timeEnd} onChange={this.handleChange} /><br />
-                <label>Relevant Tasks</label><br/>
+                <label>Relevant Tasks</label><br />
                 <textarea name="task" placeholder="Press enter for new task" value={task} rows="10" cols="22" onChange={this.handleChange} /><br />
-                <MdDone className="buttons" onClick={this.handleSave} />
+                <button type="submit"><MdDone className="buttons" /></button>
                 <MdClear className="buttons" onClick={this.handleCancel} />
                 <MdDelete className="buttons" onClick={this.removeButton} />
-            </div>
+            </form>
         );
     }
 

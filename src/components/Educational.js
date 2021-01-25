@@ -38,11 +38,18 @@ class EducationalInfo extends Component {
     }
 
     handleSave(event) {
-        this.setState({
-            [event.target.name]: event.target.value,
-            editMode: false
-        });
         event.preventDefault();
+        const [school, major, date] = event.target;
+        const options = [school.value, major.value, date.value]
+        if (options.indexOf("") > -1) {
+            alert("Please fill out all fields in Educational section")
+        }
+        else {
+            this.setState({
+                [event.target.name]: event.target.value,
+                editMode: false
+            });
+        }
     }
 
     handleCancel(event) {
@@ -70,7 +77,7 @@ class EducationalInfo extends Component {
         const { classname } = this.props;
         const { schoolName, major, gradDate } = this.state;
         return (
-            <div className={classname}>
+            <form className={classname} onSubmit={this.handleSave}>
                 <label>Institution</label><br />
                 <input name="schoolName" placeholder="University"
                     value={schoolName} onChange={this.handleChange} /><br />
@@ -80,9 +87,9 @@ class EducationalInfo extends Component {
                 <label>Graduation Date</label><br />
                 <input name="gradDate" placeholder="Expected MM/YYYY, or MM/YYYY"
                     value={gradDate} onChange={this.handleChange} /><br />
-                <MdDone className="buttons" onClick={this.handleSave} />
+                <button type="submit"><MdDone className="buttons"/></button>
                 <MdClear className="buttons" onClick={this.handleCancel} />
-            </div>
+            </form>
         );
     }
 

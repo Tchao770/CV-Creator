@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MdDone, MdClear } from 'react-icons/md';
+import { MdDone, MdClear, MdPhone, MdEmail } from 'react-icons/md';
 
 class GeneralInfo extends Component {
     constructor() {
@@ -38,11 +38,18 @@ class GeneralInfo extends Component {
     }
 
     handleSave(event) {
-        this.setState({
-            [event.target.name]: event.target.value,
-            editMode: false
-        });
         event.preventDefault();
+        const [name, email, number] = event.target;
+        const options = [name.value, email.value, number.value]
+        if (options.indexOf("") > -1) {
+            alert("Please fill out all fields in General Section")
+        }
+        else {
+            this.setState({
+                [event.target.name]: event.target.value,
+                editMode: false
+            });
+        }
     }
 
     handleCancel(event) {
@@ -55,13 +62,17 @@ class GeneralInfo extends Component {
         });
     }
 
+    handleValidation() {
+        let fields = this.state.fields;
+    }
+
     renderDisplay() {
         const { fullName, email, number } = this.state;
         return (
             <div className="genDisplay" onClick={this.toggleEdit}>
                 <h1 id="fullName">{fullName}</h1>
-                <p id="email"><b>E-mail:</b> {email}</p>
-                <p id="phone"><b>Mobile:</b> {number}</p>
+                <p id="email"><MdEmail /> {email}</p>
+                <p id="phone"><MdPhone /> {number}</p>
             </div>
         );
     }
@@ -70,20 +81,20 @@ class GeneralInfo extends Component {
         const { classname } = this.props;
         const { fullName, email, number } = this.state;
         return (
-            <div className={classname}>
+            <form className={classname} onSubmit={this.handleSave} noValidate>
                 <h2>General</h2>
                 <label>Full Name</label><br />
                 <input name="fullName" type="text" placeholder="Full Name"
-                    value={fullName} onChange={this.handleChange} /><br />
+                    value={fullName} onChange={this.handleChange} required /><br />
                 <label>E-mail</label><br />
                 <input name="email" type="email" placeholder="E-mail"
-                    value={email} onChange={this.handleChange} /><br />
+                    value={email} onChange={this.handleChange} required /><br />
                 <label>Phone Number</label><br />
                 <input name="number" placeholder="(XXX)XXX-XXXX"
-                    value={number} onChange={this.handleChange} /><br />
-                <MdDone className="buttons" onClick={this.handleSave} />
+                    value={number} onChange={this.handleChange} required /><br />
+                <button type="submit"><MdDone className="buttons" /></button>
                 <MdClear className="buttons" onClick={this.handleCancel} />
-            </div>
+            </form>
         );
     }
 

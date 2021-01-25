@@ -6,7 +6,12 @@ import React, { Component } from 'react';
 import { MdLibraryAdd } from 'react-icons/md';
 
 import './styles/App.css';
-
+/*
+TODO:
+	Rearrange components to look more like a CV
+	Improve the styling
+	Include links and icons
+*/
 // Responsible for rendering input form
 class App extends Component {
 	constructor() {

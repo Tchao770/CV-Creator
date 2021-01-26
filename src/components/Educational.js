@@ -1,72 +1,68 @@
-import React, { Component } from 'react';
+import React, { useState, useReducer } from 'react';
 import { MdDone, MdClear } from 'react-icons/md';
 import { IconContext } from 'react-icons';
 
-class EducationalInfo extends Component {
-    constructor() {
-        super();
-        this.state = {
-            schoolName: "",
-            major: "",
-            gradDate: "",
-            editMode: true
-        };
-        this.temp = {
-            schoolName: "",
-            major: "",
-            gradDate: "",
-        }
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSave = this.handleSave.bind(this);
-        this.toggleEdit = this.toggleEdit.bind(this);
-        this.renderDisplay = this.renderDisplay.bind(this);
-        this.renderEdit = this.renderEdit.bind(this);
-        this.handleCancel = this.handleCancel.bind(this);
+export default function EducationInfo(props) {
+    const [educationFields, setEducationFields] = useReducer
+        (
+            (state, newState) => ({
+                ...state, ...newState
+            }),
+            {
+                schoolName: "",
+                major: "",
+                gradDate: "",
+            }
+        );
+    const [editMode, setEditMode] = useState(true);
+
+    const temp = {
+        schoolName: "",
+        major: "",
+        gradDate: "",
+    };
+
+    const { schoolName, major, gradDate } = educationFields;
+
+    const toggleEdit = () => {
+        temp.schoolName = schoolName;
+        temp.major = major;
+        temp.gradDate = gradDate;
+        setEditMode(true);
     }
 
-    toggleEdit() {
-        Object.assign(this.temp, this.state);
-        this.setState({
-            editMode: true
-        });
-    }
-
-    handleChange(event) {
+    const handleChange = (event) => {
         const { name, value } = event.target
-        this.setState({
-            [name]: value
-        });
+        setEducationFields({
+            [name]: value,
+        })
     }
 
-    handleSave(event) {
+    const handleSave = (event) => {
         event.preventDefault();
         const [school, major, date] = event.target;
         const options = [school.value, major.value, date.value]
         if (options.indexOf("") > -1) {
-            alert("Please fill out all fields in Educational section")
+            alert("Please fill out all fields in Educational section");
         }
         else {
-            this.setState({
-                [event.target.name]: event.target.value,
-                editMode: false
-            });
+            setEditMode(false);
         }
     }
 
-    handleCancel(event) {
-        const { schoolName, major, gradDate } = this.temp;
-        this.setState({
-            schoolName: schoolName,
-            major: major,
-            gradDate: gradDate,
-            editMode: false
-        });
+    function handleCancel(event) {
+        const { name } = event.target;
+        setEducationFields({
+            [name]: temp[name],
+        })
+        setEditMode(false);
+
     }
 
-    renderDisplay() {
-        const { schoolName, major, gradDate } = this.state;
+    function renderDisplay() {
+        const { schoolName, major, gradDate } = educationFields;
         return (
-            <div className="eduDisplay" onClick={this.toggleEdit}>
+            <div className="eduDisplay" onClick={toggleEdit}>
                 <h3>{major}</h3>
                 <p>{schoolName}</p>
                 <p>Graduation: {gradDate}</p>
@@ -74,34 +70,40 @@ class EducationalInfo extends Component {
         );
     }
 
-    renderEdit() {
-        const { classname } = this.props;
-        const { schoolName, major, gradDate } = this.state;
+    function renderEdit() {
+        const { classname } = props;
+        const { schoolName, major, gradDate } = educationFields;
         return (
-            <form className={classname} onSubmit={this.handleSave}>
+            <form className={classname} onSubmit={handleSave}>
                 <label>Institution</label><br />
-                <input name="schoolName" placeholder="University"
-                    value={schoolName} onChange={this.handleChange} /><br />
+                <input
+                    name="schoolName"
+                    placeholder="University"
+                    value={schoolName}
+                    onChange={handleChange} /><br />
                 <label>Major</label><br />
-                <input name="major" placeholder="BS/AA, Major"
-                    value={major} onChange={this.handleChange} /><br />
+                <input
+                    name="major"
+                    placeholder="BS/AA, Major"
+                    value={major}
+                    onChange={handleChange} /><br />
                 <label>Graduation Date</label><br />
-                <input name="gradDate" placeholder="Expected MM/YYYY, or MM/YYYY"
-                    value={gradDate} onChange={this.handleChange} /><br />
+                <input
+                    name="gradDate"
+                    placeholder="Expected MM/YYYY, or MM/YYYY"
+                    value={gradDate}
+                    onChange={handleChange} /><br />
                 <IconContext.Provider value={{ size: "2em" }}>
-                    <button type="submit"><MdDone className="buttons" /></button>
-                    <button><MdClear className="buttons" onClick={this.handleCancel} /></button>
+                    <button type="submit">
+                        <MdDone className="buttons" />
+                    </button>
+                    <button>
+                        <MdClear className="buttons" onClick={handleCancel} />
+                    </button>
                 </IconContext.Provider>
             </form>
         );
     }
 
-    render() {
-        if (this.state.editMode)
-            return this.renderEdit();
-        else
-            return this.renderDisplay();
-    }
+    return (editMode) ? renderEdit() : renderDisplay();
 }
-
-export default EducationalInfo;

@@ -38,6 +38,7 @@ class SkillInfo extends Component {
     }
 
     handleSave(event) {
+        console.log("saved");
         event.preventDefault();
         if (event.target[0].value === "") {
             alert("Please fill out all fields in Skills section")
@@ -51,6 +52,7 @@ class SkillInfo extends Component {
     }
 
     handleCancel(event) {
+        console.log("cancled")
         const { skill, level } = this.temp;
         this.setState({
             skill: skill,

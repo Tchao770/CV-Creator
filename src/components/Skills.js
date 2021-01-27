@@ -1,112 +1,78 @@
-import React, { Component } from 'react';
+import React, { useState, useRef } from 'react';
 import { MdDone, MdClear, MdDelete } from 'react-icons/md';
 import { IconContext } from 'react-icons';
 
-class SkillInfo extends Component {
-    constructor() {
-        super();
-        this.state = {
-            skill: "",
-            level: 0,
-            editMode: true
-        };
-        this.temp = {
-            skill: "",
-            level: "",
-        }
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSave = this.handleSave.bind(this);
-        this.toggleEdit = this.toggleEdit.bind(this);
-        this.renderDisplay = this.renderDisplay.bind(this);
-        this.renderEdit = this.renderEdit.bind(this);
-        this.handleCancel = this.handleCancel.bind(this);
-        this.removeButton = this.removeButton.bind(this);
+export default function SkillInfo(props) {
+    const temp = useRef("");
+    const [skill, setSkill] = useState("");
+    const [editMode, setEditMode] = useState(true);
+
+    const toggleEdit = () => {
+        temp.current = skill
+        setEditMode(true);
     }
 
-    toggleEdit() {
-        Object.assign(this.temp, this.state);
-        this.setState({
-            editMode: true
-        });
+    const handleChange = (event) => {
+        const { value } = event.target
+        setSkill(value);
     }
 
-    handleChange(event) {
-        const { name, value } = event.target
-        this.setState({
-            [name]: value
-        });
-    }
-
-    handleSave(event) {
-        console.log("saved");
+    const handleSave = (event) => {
         event.preventDefault();
         if (event.target[0].value === "") {
             alert("Please fill out all fields in Skills section")
         }
         else {
-            this.setState({
-                [event.target.name]: event.target.value,
-                editMode: false
-            });
+            setEditMode(false);
         }
     }
 
-    handleCancel(event) {
-        console.log("cancled")
-        const { skill, level } = this.temp;
-        this.setState({
-            skill: skill,
-            level: level,
-            editMode: false
-        });
+    const handleCancel = () => {
+        setSkill(temp.current);
+        setEditMode(false);
     }
 
-    removeButton() {
-        this.props.handleRemove(this.props.itemId);
+    const removeButton = () => {
+        props.handleRemove(props.itemId);
     }
 
-    renderDisplay() {
-        const { skill, level } = this.state;
-        const rating = [];
-
-        for (let i = 0; i < level; i++) {
-            rating.push("O");
-        }
-
+    function renderDisplay() {
         return (
-            <div className="eduDisplay" onClick={this.toggleEdit}>
+            <div className="eduDisplay" onClick={toggleEdit}>
                 <h3>- {skill}</h3>
-                {/*<p><b></b> {rating}</p>*/}
             </div>
         );
     }
 
-    renderEdit() {
-        const { classname } = this.props;
-        const { skill } = this.state;
+    function FancyButtons() {
         return (
-            <form className={classname} onSubmit={this.handleSave}>
+            <IconContext.Provider value={{ size: "2em" }}>
+                <button type="submit">
+                    <MdDone className="buttons" />
+                </button>
+                <button>
+                    <MdClear className="buttons" onClick={handleCancel} />
+                </button>
+                <button>
+                    <MdDelete className="buttons" onClick={removeButton} />
+                </button>
+            </IconContext.Provider>
+        )
+    }
+
+    function renderEdit() {
+        const { classname } = props;
+        return (
+            <form className={classname} onSubmit={handleSave}>
                 <label>Skill</label><br />
                 <input name="skill" placeholder="C++, Python, etc."
-                    value={skill} onChange={this.handleChange} /><br />
-                {/*<label>Level (Out of 10)</label><br />
-                <input type="number" name="level"
-                value={level} onChange={this.handleChange} /><br />*/}
-                <IconContext.Provider value={{ size: "2em" }}>
-                    <button type="submit"><MdDone className="buttons" /></button>
-                    <button><MdClear className="buttons" onClick={this.handleCancel} /></button>
-                    <button><MdDelete className="buttons" onClick={this.removeButton} /></button>
-                </IconContext.Provider>
+                    value={skill} onChange={handleChange} /><br />
+
+                <FancyButtons />
             </form>
         );
     }
 
-    render() {
-        if (this.state.editMode)
-            return this.renderEdit();
-        else
-            return this.renderDisplay();
-    }
+    return (editMode) ? renderEdit() : renderDisplay();
 }
 
-export default SkillInfo;

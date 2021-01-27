@@ -1,8 +1,10 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useRef } from 'react';
 import { MdDone, MdClear } from 'react-icons/md';
 import { IconContext } from 'react-icons';
 
 export default function EducationInfo(props) {
+    const temp = useRef();
+    const [editMode, setEditMode] = useState(true);
     const [educationFields, setEducationFields] = useReducer
         (
             (state, newState) => ({
@@ -13,21 +15,10 @@ export default function EducationInfo(props) {
                 major: "",
                 gradDate: "",
             }
-        );
-    const [editMode, setEditMode] = useState(true);
-
-    const temp = {
-        schoolName: "",
-        major: "",
-        gradDate: "",
-    };
-
-    const { schoolName, major, gradDate } = educationFields;
+        )
 
     const toggleEdit = () => {
-        temp.schoolName = schoolName;
-        temp.major = major;
-        temp.gradDate = gradDate;
+        temp.current = educationFields;
         setEditMode(true);
     }
 
@@ -50,17 +41,14 @@ export default function EducationInfo(props) {
         }
     }
 
-    function handleCancel(event) {
-        const { name } = event.target;
-        setEducationFields({
-            [name]: temp[name],
-        })
-        setEditMode(false);
+    function handleCancel() {
 
+        setEducationFields(temp.current);
+        setEditMode(false);
     }
 
+    const { schoolName, major, gradDate } = educationFields;
     function renderDisplay() {
-        const { schoolName, major, gradDate } = educationFields;
         return (
             <div className="eduDisplay" onClick={toggleEdit}>
                 <h3>{major}</h3>
@@ -70,9 +58,21 @@ export default function EducationInfo(props) {
         );
     }
 
+    function FancyButtons() {
+        return (
+            <IconContext.Provider value={{ size: "2em" }}>
+                <button type="submit">
+                    <MdDone className="buttons" />
+                </button>
+                <button>
+                    <MdClear className="buttons" onClick={handleCancel} />
+                </button>
+            </IconContext.Provider>
+        )
+    }
+
     function renderEdit() {
         const { classname } = props;
-        const { schoolName, major, gradDate } = educationFields;
         return (
             <form className={classname} onSubmit={handleSave}>
                 <label>Institution</label><br />
@@ -93,14 +93,7 @@ export default function EducationInfo(props) {
                     placeholder="Expected MM/YYYY, or MM/YYYY"
                     value={gradDate}
                     onChange={handleChange} /><br />
-                <IconContext.Provider value={{ size: "2em" }}>
-                    <button type="submit">
-                        <MdDone className="buttons" />
-                    </button>
-                    <button>
-                        <MdClear className="buttons" onClick={handleCancel} />
-                    </button>
-                </IconContext.Provider>
+                <FancyButtons />
             </form>
         );
     }

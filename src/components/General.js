@@ -1,34 +1,46 @@
-import React, { useState, useReducer } from 'react';
+/*
+    // Idiot's implementation of something that can be done with a single line of code...
+    // This was how I implemented it on the other files as well ahahaha...
+
+    const toggleEdit = () => {
+        const labels = ["fullName", "email", "number"];
+        temp.current = [fullName, email, number].map(
+            (ref, index) => {
+                return temp.current[index] = { [labels[index]]: ref };
+            }
+        );
+        setEditMode(true);
+    }
+
+
+    const handleCancel = () => {
+        const tObj = {};
+        temp.current.forEach((t) => {
+            Object.assign(tObj, t)
+        });
+        setGeneralFields(tObj);
+        setEditMode(false);
+    }
+*/
+
+import React, { useState, useReducer, useRef } from 'react';
 import { MdDone, MdClear, MdPhone, MdEmail } from 'react-icons/md';
 import { IconContext } from 'react-icons';
 
 export default function GeneralInfo(props) {
+    const temp = useRef();
     const [editMode, setEditMode] = useState(true);
-    // useReducer enables storing multiple states into a single variable to keep DRY
     const [generalFields, setGeneralFields] = useReducer
-        (
-            (state, newState) => ({
-                ...state, ...newState
-            }),
+        ((state, action) => ({ ...state, ...action }),
             {
                 fullName: "",
                 email: "",
-                number: "",
+                number: ""
             }
         );
-    const temp =
-    {
-        fullName: "",
-        email: "",
-        number: "",
-    }
-    // Destructured since it is used in a good majority of the functions passed
-    const { fullName, email, number } = generalFields;
 
     const toggleEdit = () => {
-        temp.fullName = fullName;
-        temp.email = email;
-        temp.number = number;
+        temp.current = generalFields;
         setEditMode(true);
     }
 
@@ -39,10 +51,8 @@ export default function GeneralInfo(props) {
         });
     }
 
-
-    function handleSave(event) {
+    const handleSave = (event) => {
         event.preventDefault();
-        console.log("Edit Saved");
         const [name, email, number] = event.target;
         const options = [name.value, email.value, number.value]
         if (options.indexOf("") > -1) {
@@ -53,17 +63,12 @@ export default function GeneralInfo(props) {
         }
     }
 
-    function handleCancel(event) {
-        event.preventDefault();
-        console.log("Edit Canceled");
-        const { name } = event.target;
-        setGeneralFields({
-            [name]: temp[name],
-        });
+    const handleCancel = () => {
+        setGeneralFields(temp.current);
         setEditMode(false);
     }
 
-
+    const { fullName, email, number } = generalFields;
     function renderDisplay() {
         return (
             <div className="genDisplay" onClick={toggleEdit}>
@@ -78,6 +83,18 @@ export default function GeneralInfo(props) {
         );
     }
 
+    function FancyButtons() {
+        return (
+            <IconContext.Provider value={{ size: "2em" }}>
+                <button type="submit">
+                    <MdDone className="buttons" />
+                </button>
+                <button>
+                    <MdClear className="buttons" onClick={handleCancel} />
+                </button>
+            </IconContext.Provider>
+        )
+    }
 
     function renderEdit() {
         const { classname } = props;
@@ -104,14 +121,7 @@ export default function GeneralInfo(props) {
                     placeholder="(XXX)XXX-XXXX"
                     value={number}
                     onChange={handleChange} /><br />
-                <IconContext.Provider value={{ size: "2em" }}>
-                    <button type="submit">
-                        <MdDone className="buttons" />
-                    </button>
-                    <button>
-                        <MdClear className="buttons" onClick={handleCancel} />
-                    </button>
-                </IconContext.Provider>
+                <FancyButtons />
             </form>
         );
     }

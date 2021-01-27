@@ -1,85 +1,59 @@
-import React, { Component } from 'react';
+import React, { useState, useReducer, useRef } from 'react';
 import { MdDone, MdClear, MdDelete } from 'react-icons/md';
 import { IconContext } from 'react-icons';
 
-class PracticalInfo extends Component {
-    constructor() {
-        super();
-        this.state = {
+export default function PracticalInfo(props) {
+    const temp = useRef();
+    const [editMode, setEditMode] = useState(true);
+    const [practicalFields, setPracticalFields] = useReducer(
+        (state, newState) => ({ ...state, ...newState }),
+        {
             companyName: "",
             position: "",
             timeBegin: "",
             timeEnd: "",
             task: "",
-            editMode: true
-        };
-        this.temp = {
-            companyName: "",
-            position: "",
-            timeBegin: "",
-            timeEnd: "",
         }
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSave = this.handleSave.bind(this);
-        this.toggleEdit = this.toggleEdit.bind(this);
-        this.renderDisplay = this.renderDisplay.bind(this);
-        this.renderEdit = this.renderEdit.bind(this);
-        this.handleCancel = this.handleCancel.bind(this);
-        this.removeButton = this.removeButton.bind(this);
+    );
+
+    const toggleEdit = () => {
+        temp.current = practicalFields;
+        setEditMode(true);
     }
 
-    toggleEdit() {
-        Object.assign(this.temp, this.state);
-        this.setState({
-            editMode: true
-        });
-    }
-
-    handleChange(event) {
+    const handleChange = (event) => {
         const { name, value } = event.target
-        this.setState({
+        setPracticalFields({
             [name]: value
         });
     }
 
-    handleSave(event) {
+    const handleSave = (event) => {
         event.preventDefault();
         const [company, position, timeB, timeE] = event.target;
-        const options = [company.value, position.value, timeB.value, timeE.value]
+        const options = [company.value, position.value, timeB.value, timeE.value];
         if (options.indexOf("") > -1) {
             alert("Please fill out all fields in Practical Experience section")
         }
         else {
-            this.setState({
-                [event.target.name]: event.target.value,
-                editMode: false
-            });
+            setEditMode(false);
         }
     }
 
-    handleCancel(event) {
-        const { companyName, position, timeBegin, timeEnd } = this.temp;
-        this.setState({
-            companyName: companyName,
-            position: position,
-            timeBegin: timeBegin,
-            timeEnd: timeEnd,
-            editMode: false
-        });
+    const handleCancel = () => {
+        setPracticalFields(temp.current);
+        setEditMode(false);
     }
 
-    removeButton() {
-        this.props.handleRemove(this.props.itemId);
-    }
+    const removeButton = () => props.handleRemove(props.itemId);
 
 
-
-    renderDisplay() {
-        const { companyName, position, timeBegin, timeEnd, task } = this.state;
+    const { companyName, position, timeBegin, timeEnd, task } = practicalFields;
+    function renderDisplay() {
         const taskArr = task.split(/\r?\n/);
 
         return (
-            <div className="eduDisplay" onClick={this.toggleEdit}>
+            <div className="eduDisplay" onClick={toggleEdit}>
                 <h3>{position}</h3>
                 <p>{companyName}, {timeBegin} - {timeEnd}</p>
                 <ul>
@@ -93,40 +67,56 @@ class PracticalInfo extends Component {
         );
     }
 
-    renderEdit() {
-        const { classname } = this.props;
-        const { companyName, position, timeBegin, timeEnd, task } = this.state;
+    function FancyButtons() {
         return (
-            <form className={classname} onSubmit={this.handleSave}>
+            <IconContext.Provider value={{ size: "2em" }}>
+                <button type="submit">
+                    <MdDone className="buttons" />
+                </button>
+                <button>
+                    <MdClear className="buttons" onClick={handleCancel} />
+                </button>
+                <button>
+                    <MdDelete className="buttons" onClick={removeButton} />
+                </button>
+            </IconContext.Provider>
+        )
+    }
+
+    function renderEdit() {
+        const { classname } = props;
+        return (
+            <form className={classname} onSubmit={handleSave}>
                 <label>Company Name</label><br />
-                <input name="companyName" placeholder="Name of Company"
-                    value={companyName} onChange={this.handleChange} /><br />
+                <input
+                    name="companyName"
+                    placeholder="Name of Company"
+                    value={companyName}
+                    onChange={handleChange} /><br />
                 <label>Position</label><br />
-                <input name="position" placeholder="Fullstack Developer, etc."
-                    value={position} onChange={this.handleChange} /><br />
+                <input
+                    name="position"
+                    placeholder="Fullstack Developer, etc."
+                    value={position}
+                    onChange={handleChange} /><br />
                 <label>First Month of Employment</label><br />
-                <input name="timeBegin" placeholder="MM/YYYY"
-                    value={timeBegin} onChange={this.handleChange} /><br />
+                <input
+                    name="timeBegin"
+                    placeholder="MM/YYYY"
+                    value={timeBegin}
+                    onChange={handleChange} /><br />
                 <label>Last Month of Employment</label><br />
-                <input name="timeEnd" placeholder="MM/YYYY or Current"
-                    value={timeEnd} onChange={this.handleChange} /><br />
+                <input
+                    name="timeEnd"
+                    placeholder="MM/YYYY or Current"
+                    value={timeEnd}
+                    onChange={handleChange} /><br />
                 <label>Relevant Tasks</label><br />
-                <textarea name="task" placeholder="Press enter for new task" value={task} rows="5" cols="33" onChange={this.handleChange} /><br />
-                <IconContext.Provider value={{ size: "2em" }}>
-                    <button type="submit"><MdDone className="buttons" /></button>
-                    <button><MdClear className="buttons" onClick={this.handleCancel} /></button>
-                    <button><MdDelete className="buttons" onClick={this.removeButton} /></button>
-                </IconContext.Provider>
+                <textarea name="task" placeholder="Press enter for new task" value={task} rows="5" cols="33" onChange={handleChange} /><br />
+                <FancyButtons />
             </form>
         );
     }
 
-    render() {
-        if (this.state.editMode)
-            return this.renderEdit();
-        else
-            return this.renderDisplay();
-    }
+    return (editMode) ? renderEdit() : renderDisplay();
 }
-
-export default PracticalInfo;
